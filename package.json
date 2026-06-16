@@ -1,0 +1,37 @@
+{
+  "name": "first",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@heyputer/puter.js": "^2.5.3",
+    "fluent-ffmpeg": "^2.1.3",
+    "inngest": "^4.5.1",
+    "next": "15.3.1",
+    "openai": "^6.42.0",
+    "p-limit": "^7.3.0",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^6.0.227",
+    "pdfjs-lib": "^0.0.149",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.6.0",
+    "unpdf": "^1.6.2"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
