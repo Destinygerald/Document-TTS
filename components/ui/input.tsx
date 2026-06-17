@@ -3,9 +3,19 @@
 import { banner, inputs } from "@/styles";
 import { useEffect, useRef, useState } from "react";
 import { IoCloudUpload } from "react-icons/io5";
+// import {
+//   animate,
+//   motion,
+//   useMotionTemplate,
+//   useMotionValue,
+// } from "motion/react";
+// import { twMerge } from "tailwind-merge";
 
 import puter from "@heyputer/puter.js";
 import { AudioResult } from "./audio-result";
+import { MessageContextFunction } from "@/context-api/message-queue";
+import { FiLoader } from "react-icons/fi";
+import { AIGradientBorder } from "./border";
 
 const SPEECH_OPTIONS = {
   voice: "Joanna",
@@ -16,7 +26,9 @@ const SPEECH_OPTIONS = {
 function LoadingScreen({ loadingText }: { loadingText: string }) {
   return (
     <div className={banner.loading_screen}>
-      <div className={banner.loader}></div>
+      <span className={banner.loader}>
+        <FiLoader />
+      </span>
       <span className={banner.loading_text}>{loadingText}</span>
     </div>
   );
@@ -33,14 +45,13 @@ export function FileInput() {
   const ref = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const { addMessage } = MessageContextFunction();
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!e?.target?.files) return;
 
     if (e.target.files[0].type != "application/pdf") {
-      //   dispatch(
-      //     addMessage({ label: "Only PDF Files are allowed", type: "warning" }),
-      //   );
-      // console.log("Error label: Only PDF Files are allowed");
+      addMessage({ label: "Only PDF Files are allowed", type: "warning" });
       return;
     }
 
@@ -60,7 +71,10 @@ export function FileInput() {
   function handleDrop(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
 
-    if (e.dataTransfer.files[0].type != "application/pdf") return;
+    if (e.dataTransfer.files[0].type != "application/pdf") {
+      addMessage({ label: "Only PDF Files are allowed", type: "warning" });
+      return;
+    }
 
     setPdf(e.dataTransfer.files[0].name);
 
@@ -72,7 +86,7 @@ export function FileInput() {
 
   async function transform() {
     if (!formData) {
-      // dispatch(addMessage({ label: "No Document detected", type: 'warning' }))
+      addMessage({ label: "No Document detected", type: "warning" });
       return;
     }
 
@@ -85,8 +99,6 @@ export function FileInput() {
     });
 
     const parsed_response = await response.json();
-
-    // console.log(parsed_response);
 
     if (!response.ok) {
       // dispatch(addMessage({ label: 'Error try again', type: 'failed' }))
@@ -143,51 +155,53 @@ export function FileInput() {
       "drop",
       handleDrop as unknown as EventListener,
     );
-  }, []);
+  });
 
   return (
     <>
-      <div className={banner.input_container}>
-        {!pdf ? (
-          <>
-            <span className={banner.input_text}>
-              Drag and Drop/Select Files
-            </span>
-            <span className={banner.input_icon}>
-              <IoCloudUpload />
-            </span>
-            <div className={inputs.file_input_div} ref={containerRef}>
-              <input
-                type="file"
-                className={inputs.file_input}
-                ref={ref}
-                value={pdf}
-                onChange={handleChange}
-              />
+      <AIGradientBorder className={banner.input_container}>
+        <div className={inputs.bg}>
+          {!pdf ? (
+            <>
+              <span className={banner.input_text}>
+                Drag and Drop/Select Files
+              </span>
+              <span className={banner.input_icon}>
+                <IoCloudUpload />
+              </span>
+              <div className={inputs.file_input_div} ref={containerRef}>
+                <input
+                  type="file"
+                  className={inputs.file_input}
+                  ref={ref}
+                  value={pdf}
+                  onChange={handleChange}
+                />
+              </div>
+            </>
+          ) : (
+            <div className={inputs.file_data}>
+              <span> {pdf} </span>
+              <div className={inputs.btn_ctn}>
+                <button
+                  className={inputs.btn}
+                  onClick={transform}
+                  disabled={loading}
+                >
+                  Transform
+                </button>
+                <button
+                  className={`${inputs.btn} ${inputs.cancel_btn}`}
+                  onClick={cancel}
+                  disabled={loading}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
-          </>
-        ) : (
-          <div className={inputs.file_data}>
-            <span> {pdf} </span>
-            <div className={inputs.btn_ctn}>
-              <button
-                className={inputs.btn}
-                onClick={transform}
-                disabled={loading}
-              >
-                Transform
-              </button>
-              <button
-                className={`${inputs.btn} ${inputs.cancel_btn}`}
-                onClick={cancel}
-                disabled={loading}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </AIGradientBorder>
       {loading && <LoadingScreen loadingText={loadingText} />}
       {audioResult[0] ? (
         <AudioResult title={title} audios={audioResult} />

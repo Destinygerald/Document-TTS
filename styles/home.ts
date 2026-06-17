@@ -8,20 +8,20 @@ export const banner = {
   how_it_works:
     "flex gap-[60px] max-md:grid max-md:grid-cols-2 max-md:w-[88%] max-md:[&>div:first-child]:col-span-2 max-md:gap-[32px] max-md:justify-items-center",
   how_it_works_card:
-    "w-[240px] max-md:w-[180px] h-[72px] rounded-[8px] [&>span:nth-child(2)]:text-[.72rem] bg-secondary text-white flex flex-col items-center justify-center gap-[8px] ",
+    "w-[240px] max-md:w-[180px] h-[72px] rounded-[8px]  bg-secondary text-white flex flex-col items-center justify-center gap-[8px] [&>span:nth-child(2)]:text-[.72rem] ",
   input_container:
-    "flex flex-col gap-[6px] items-center justify-center relative w-[50%] max-md:w-[80%] h-[168px] bg-foreground mt-[12px] rounded-[16px] border-[2px] border-primary border-dashed overflow-hidden",
-  input_text: "text-[.88rem] text-primary",
-  input_icon: "text-primary text-[1.48rem]",
+    " w-[50%] max-md:w-[80%] h-[168px] bg-foreground mt-[12px] rounded-[16px] overflow-hidden  p-[2px] box-content",
+  input_text: "text-[.88rem] text-white",
+  input_icon: "text-white text-[1.48rem]",
   loading_screen:
     "fixed top-0 left-0 w-[100%] h-[100vh] z-[2] bg-[rgba(10,3,17,0.59)] flex flex-col gap-[12px] text-white backdrop-blur-[2px] items-center justify-center",
-  loader:
-    "w-[36px] h-[36px] relative rounded-full border-t-[2px] border-t-white border-b-[2px] border-b-white bg-transparent animate-spin",
+  loader: "text-white text-[1.4rmem] animate-spin",
   loading_text: "text-[.82rem] max-w-[80%] text-center font-[500]",
 };
 
 export const inputs = {
   file_input_div: "absolute z-[1] w-[100%] h-[100%] top-0 opacity-0",
+  bg: "flex flex-col gap-[6px] items-center justify-center relative text-[white]  bg-background w-[100%] h-[100%] h-[100%] border-[2px] border-[rgba(255,255,255,1)] border-dashed rounded-[16px] [&>span:nth-child(2)]:text-[1rem]",
   file_input: " w-[100%] h-[100%] cursor-pointer",
   file_data:
     "flex flex-col w-[100%] gap-[12px] [&>span:first-child]:text-[.72rem] [&>span:first-child]:font-[600] [&>span:first-child]:capitalize",

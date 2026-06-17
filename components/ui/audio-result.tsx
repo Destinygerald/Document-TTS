@@ -40,7 +40,7 @@ export function AudioResult({
 
   useEffect(() => {
     handleAudio();
-  }, []);
+  });
 
   return (
     <div className={results.container}>

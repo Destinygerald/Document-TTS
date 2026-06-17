@@ -5,8 +5,8 @@
   --foreground: #212136;
   --primary: #5c5bc0;
   --secondary: rgb(72, 71, 120);
-
   --text: white;
+  --width_grow: width_grow 1.2s ease-in-out forwards;
 }
 
 @font-face {
@@ -26,6 +26,7 @@
   --color-secondary: var(--secondary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --animate-width_grow: var(--width_grow);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -104,4 +105,21 @@ body {
 
 audio {
   filter: brightness(0) invert(1);
+}
+
+@keyframes width_grow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.ai-glow-spill-mask {
+  mask-image: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 50%,
+    black 100%
+  );
 }

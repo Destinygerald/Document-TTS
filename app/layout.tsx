@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { PuterAuth } from "@/components/ui";
+import ContextProvider from "@/context-api/_provider";
+import { MessageQueue } from "@/components/ui/message-queue";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <PuterAuth />
-        <>{children}</>
+        <ContextProvider>
+          <PuterAuth />
+          <MessageQueue />
+          <>{children}</>
+        </ContextProvider>
       </body>
     </html>
   );
